@@ -78,8 +78,28 @@ public class Main {
     // ======== 10 REQUIRED METHODS (Students fill these) ========
 
     public static String mostProfitableCommodityInMonth(int month) {
-        return "DUMMY"; 
+
+        if (month < 0 || month >= MONTHS) {
+            return "INVALID_MONTH";
+        }
+
+        int bestIndex = 0;
+        int bestTotal = 0;
+
+        for (int c = 0; c < COMMS; c++) {
+            int sum = 0;
+            for (int d = 0; d < DAYS; d++) {
+                sum += profits[month][c][d];
+            }
+
+            if (c == 0 || sum > bestTotal) {
+                bestTotal = sum;
+                bestIndex = c;
+            }
+        }
+        return commodities[bestIndex] + " " + bestTotal;
     }
+
 
     public static int totalProfitOnDay(int month, int day) {
 
@@ -102,8 +122,44 @@ public class Main {
 
 
     public static int commodityProfitInRange(String commodity, int from, int to) {
-        return 1234;
+
+        if (commodity == null) {
+            return -99999;
+        }
+        if (from < 1 || from > DAYS) {
+            return -99999;
+        }
+        if (to < 1 || to > DAYS) {
+            return -99999;
+        }
+        if (from > to) {
+            return -99999;
+        }
+
+        int index = -1;
+
+
+        for (int i = 0; i < COMMS; i++) {
+            if (commodities[i].equals(commodity)) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index == -1) {
+            return -99999;
+        }
+
+        int sum = 0;
+        for (int m = 0; m < MONTHS; m++) {
+            for (int d = from; d <= to; d++) {
+                sum += profits[m][index][d - 1];
+            }
+        }
+        return sum;
     }
+
+
 
     public static int bestDayOfMonth(int month) {
 
@@ -126,10 +182,44 @@ public class Main {
         return bestDay;
     }
 
-    
-    public static String bestMonthForCommodity(String comm) { 
-        return "DUMMY"; 
+
+    public static String bestMonthForCommodity(String comm) {
+        if (comm == null) {
+            return "INVALID_COMMODITY";
+        }
+
+        int index = -1;
+        for (int i = 0; i < COMMS; i++) {
+            if (commodities[i].equals(comm)) {
+                index = i;
+                break;
+            }
+        }
+        if (index == -1) {
+            return "INVALID_COMMODITY";
+        }
+
+
+        int bestMonth = 0;
+        int bestTotal = 0;
+
+        for (int m = 0; m < MONTHS; m++) {
+            int sum = 0;
+            for (int d = 0; d < DAYS; d++) {
+                sum += profits[m][index][d];
+            }
+
+            if (m == 0 || sum > bestTotal) {
+                bestTotal = sum;
+                bestMonth = m;
+            }
+        }
+
+
+        return months[bestMonth];
     }
+
+
 
     public static int consecutiveLossDays(String comm) { 
         return 1234; 
