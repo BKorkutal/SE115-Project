@@ -391,17 +391,7 @@ public class Main {
 
         System.out.println("Data loaded – ready for queries");
 
-        System.out.println(mostProfitableCommodityInMonth(0));
-        System.out.println(totalProfitOnDay(0, 1));
-        System.out.println(commodityProfitInRange("Gold", 1, 7));
-        System.out.println(bestDayOfMonth(0));
-        System.out.println(bestMonthForCommodity("Gold"));
-        System.out.println(consecutiveLossDays("Gold"));
-        System.out.println(daysAboveThreshold("Gold", 1000));
-        System.out.println(biggestDailySwing(0));
-        System.out.println(compareTwoCommodities("Gold", "Oil"));
-        System.out.println(bestWeekOfMonth(0));
-        
+
     }
 
 
