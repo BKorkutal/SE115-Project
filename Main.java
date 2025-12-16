@@ -296,20 +296,101 @@ public class Main {
         return count;
     }
 
-    public static int biggestDailySwing(int month) { 
-        return 1234; 
+    public static int biggestDailySwing(int month) {
+
+        if (month < 0 || month >= MONTHS) {
+            return -99999;
+        }
+
+        int best = 0;
+
+
+        for (int day = 2; day <= DAYS; day++) {
+            int today = totalProfitOnDay(month, day);
+            int yesterday = totalProfitOnDay(month, day - 1);
+
+            int diff = today - yesterday;
+            if (diff < 0) diff = -diff;
+
+            if (day == 2 || diff > best) {
+                best = diff;
+            }
+
+        }
+
+        return best;
     }
-    
-    public static String compareTwoCommodities(String c1, String c2) { 
-        return "DUMMY is better by 1234"; 
+
+    public static String compareTwoCommodities(String c1, String c2) {
+
+        if (c1 == null || c2 == null) {
+            return "INVALID_COMMODITY";
+        }
+
+        int idx1 = -1;
+        int idx2 = -1;
+
+        for (int i = 0; i < COMMS; i++) {
+            if (commodities[i].equals(c1)) idx1 = i;
+            if (commodities[i].equals(c2)) idx2 = i;
+        }
+
+        if (idx1 == -1 || idx2 == -1) {
+            return "INVALID_COMMODITY";
+        }
+
+        int sum1 = 0;
+        int sum2 = 0;
+
+        for (int m = 0; m < MONTHS; m++) {
+            for (int d = 0; d < DAYS; d++) {
+                sum1 += profits[m][idx1][d];
+                sum2 += profits[m][idx2][d];
+            }
+        }
+
+        if (sum1 > sum2) {
+            return c1 + " is better by " + (sum1 - sum2);
+        } else if (sum2 > sum1) {
+            return c2 + " is better by " + (sum2 - sum1);
+        } else {
+            return "Equal";
+        }
     }
-    
-    public static String bestWeekOfMonth(int month) { 
-        return "DUMMY"; 
+
+    public static String bestWeekOfMonth(int month) {
+
+        if (month < 0 || month >= MONTHS) {
+            return "INVALID_MONTH";
+        }
+
+        int bestWeek = 1;
+
+        int bestSum = 0;
+
+        for (int week = 1; week <= 4; week++) {
+            int startDay = (week - 1) * 7 + 1;
+            int endDay = startDay + 6;
+
+            int sum = 0;
+            for (int day = startDay; day <= endDay; day++) {
+                sum += totalProfitOnDay(month, day);
+            }
+
+            if (week == 1 || sum > bestSum) {
+                bestSum = sum;
+                bestWeek = week;
+            }
+        }
+        return "Week " + bestWeek;
     }
+
 
     public static void main(String[] args) {
         loadData();
         System.out.println("Data loaded – ready for queries");
     }
+
+
+
 }
