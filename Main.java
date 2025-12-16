@@ -8,7 +8,7 @@ public class Main {
     static final int COMMS = 5;
     static String[] commodities = {"Gold", "Oil", "Silver", "Wheat", "Copper"};
     static String[] months = {"January","February","March","April","May","June",
-                              "July","August","September","October","November","December"};
+            "July","August","September","October","November","December"};
 
 
     static int[][][] profits = new int[MONTHS][COMMS][DAYS];
@@ -388,8 +388,22 @@ public class Main {
 
     public static void main(String[] args) {
         loadData();
+
         System.out.println("Data loaded – ready for queries");
+
+        System.out.println(mostProfitableCommodityInMonth(0));
+        System.out.println(totalProfitOnDay(0, 1));
+        System.out.println(commodityProfitInRange("Gold", 1, 7));
+        System.out.println(bestDayOfMonth(0));
+        System.out.println(bestMonthForCommodity("Gold"));
+        System.out.println(consecutiveLossDays("Gold"));
+        System.out.println(daysAboveThreshold("Gold", 1000));
+        System.out.println(biggestDailySwing(0));
+        System.out.println(compareTwoCommodities("Gold", "Oil"));
+        System.out.println(bestWeekOfMonth(0));
+        
     }
+
 
 
 
